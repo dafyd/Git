@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace StyleCI\Git;
+namespace StyleCI\Git\Repositories;
 
 use Exception;
 use Gitonomy\Git\Exception\GitExceptionInterface;
@@ -30,14 +30,14 @@ class PersistentRepository implements RepositoryInterface
     /**
      * The underlying repository instance.
      *
-     * @var \StyleCI\Git\RepositoryInterface
+     * @var \StyleCI\Git\Repositories\RepositoryInterface
      */
     protected $repository;
 
     /**
      * Create a new persistent repository instance.
      *
-     * @param \StyleCI\Git\RepositoryInterface $repository
+     * @param \StyleCI\Git\Repositories\RepositoryInterface $repository
      *
      * @return void
      */

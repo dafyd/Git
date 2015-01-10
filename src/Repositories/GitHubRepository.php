@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace StyleCI\Git;
+namespace StyleCI\Git\Repositories;
 
 use Gitonomy\Git\Admin as Git;
 use Gitonomy\Git\Repository as GitRepo;

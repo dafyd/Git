@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace StyleCI\Git;
+namespace StyleCI\Git\Repositories;
 
 /**
  * This is the repository interface.
