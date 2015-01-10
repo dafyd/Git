@@ -1,0 +1,53 @@
+{
+    "name": "styleci/git",
+    "description": "StyleCI Git A Git Repository Manager",
+    "keywords": ["laravel", "framework", "git", "repo", "repository", "StyleCI", "StyleCI", "Git", "Graham Campbell", "GrahamCampbell"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Graham Campbell",
+            "email": "graham@mineuk.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/GrahamCampbell/html"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/GrahamCampbell/testbench"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/StyleCI/framework"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "illuminate/contracts": "~5.0",
+        "illuminate/support": "~5.0",
+        "symfony/filesystem": "~2.3",
+        "gitonomy/gitlib": "~1.0"
+    },
+    "require-dev": {
+        "graham-campbell/testbench": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "StyleCI\\Git\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "StyleCI\\Tests\\Git\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
