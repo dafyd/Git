@@ -77,7 +77,7 @@ class PersistentRepository implements RepositoryInterface
     {
         $exceptions = [];
 
-        while ($tries = count($exceptions) < 3) {
+        while (($tries = count($exceptions)) < 3) {
             try {
                 if ($tries > 0) {
                     // if we've failed before, delete the local repository
@@ -110,7 +110,7 @@ class PersistentRepository implements RepositoryInterface
     {
         $exceptions = [];
 
-        while ($tries = count($exceptions) < 3) {
+        while (($tries = count($exceptions)) < 3) {
             try {
                 if ($tries > 0) {
                     // if we've failed before, delete the local repository
@@ -145,7 +145,7 @@ class PersistentRepository implements RepositoryInterface
     {
         $exceptions = [];
 
-        while ($tries = count($exceptions) < 3) {
+        while (($tries = count($exceptions))  < 3) {
             try {
                 if ($tries > 0) {
                     // if we've failed before, delete the local repository
@@ -182,7 +182,7 @@ class PersistentRepository implements RepositoryInterface
     {
         $exceptions = [];
 
-        while ($tries = count($exceptions) < 3) {
+        while (($tries = count($exceptions))  < 3) {
             try {
                 if ($tries > 0) {
                     // if we've failed before, delete the local repository
