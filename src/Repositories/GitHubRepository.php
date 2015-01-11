@@ -93,7 +93,7 @@ class GitHubRepository implements RepositoryInterface
      */
     public function exists()
     {
-        return $this->filesystem->exists($this->path.'/.git');
+        return $this->filesystem->exists($this->path);
     }
 
     /**
