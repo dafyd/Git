@@ -9,20 +9,6 @@
             "email": "graham@mineuk.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/GrahamCampbell/html"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/GrahamCampbell/testbench"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/StyleCI/framework"
-        }
-    ],
     "require": {
         "php": ">=5.5.0",
         "illuminate/contracts": "~5.0",
