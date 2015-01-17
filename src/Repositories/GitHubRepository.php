@@ -39,13 +39,6 @@ class GitHubRepository implements RepositoryInterface
     protected $url;
 
     /**
-     * The gitlib options.
-     *
-     * @var array
-     */
-    protected $options;
-
-    /**
      * The symfony filesystem instance.
      *
      * @var \Symfony\Component\Filesystem\Filesystem
@@ -64,15 +57,13 @@ class GitHubRepository implements RepositoryInterface
      *
      * @param string $repo
      * @param string $path
-     * @param array  $options
      *
      * @return void
      */
-    public function __construct($repo, $path, array $options = [])
+    public function __construct($repo, $path)
     {
         $this->path = $path.'/'.sha1($repo);
         $this->url = 'https://github.com/'.$repo.'.git';
-        $this->options = $options;
         $this->filesystem = new Filesystem();
     }
 
@@ -112,7 +103,7 @@ class GitHubRepository implements RepositoryInterface
 
         $this->filesystem->mkdir($this->path);
 
-        $this->repo = Git::cloneTo($this->path, $this->url, false, $this->options);
+        $this->repo = Git::cloneTo($this->path, $this->url, false);
     }
 
     /**
@@ -132,7 +123,7 @@ class GitHubRepository implements RepositoryInterface
             throw new RepositoryDoesNotExistException();
         }
 
-        return $this->repo = new GitRepo($this->path, $this->options);
+        return $this->repo = new GitRepo($this->path);
     }
 
     /**
