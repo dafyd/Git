@@ -32,11 +32,11 @@ class GitHubRepository implements RepositoryInterface
     protected $path;
 
     /**
-     * The github repository url.
+     * The github repository location.
      *
      * @var string
      */
-    protected $url;
+    protected $location;
 
     /**
      * The symfony filesystem instance.
@@ -63,7 +63,7 @@ class GitHubRepository implements RepositoryInterface
     public function __construct($repo, $path)
     {
         $this->path = $path.'/'.sha1($repo);
-        $this->url = 'https://github.com/'.$repo.'.git';
+        $this->location = 'git@github.com:'.$repo.'.git';
         $this->filesystem = new Filesystem();
     }
 
@@ -103,7 +103,7 @@ class GitHubRepository implements RepositoryInterface
 
         $this->filesystem->mkdir($this->path);
 
-        $this->repo = Git::cloneTo($this->path, $this->url, false);
+        $this->repo = Git::cloneTo($this->path, $this->location, false);
     }
 
     /**
