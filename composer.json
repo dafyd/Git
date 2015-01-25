@@ -1,7 +1,7 @@
 {
     "name": "styleci/git",
-    "description": "StyleCI Git A Git Repository Manager",
-    "keywords": ["laravel", "framework", "git", "repo", "repository", "StyleCI", "StyleCI", "Git", "Graham Campbell", "GrahamCampbell"],
+    "description": "StyleCI Git Is A Git Repository Manager",
+    "keywords": ["git", "repo", "repository", "StyleCI", "StyleCI", "Git", "Graham Campbell", "GrahamCampbell"],
     "license": "MIT",
     "authors": [
         {
@@ -11,13 +11,11 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "illuminate/contracts": "~5.0",
-        "illuminate/support": "~5.0",
         "symfony/filesystem": "~2.3",
         "gitonomy/gitlib": "~1.0"
     },
     "require-dev": {
-        "graham-campbell/testbench": "~2.0"
+        "phpunit/phpunit": "~4.4"
     },
     "autoload": {
         "psr-4": {
