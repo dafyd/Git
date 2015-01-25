@@ -3,7 +3,7 @@ StyleCI Git
 
 StyleCI Git was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a git repository manager. It utilises the [Gitlib](https://github.com/gitonomy/gitlib) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/StyleCI/Git/releases), [license](LICENSE), [api docs](http://docs.grahamjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
 
-![StyleCI Git](https://cloud.githubusercontent.com/assets/2829600/5693652/734d5fb0-991e-11e4-8423-ed90cd851f9b.PNG)
+![StyleCI Git](https://cloud.githubusercontent.com/assets/2829600/5893832/e1bf28de-a4ea-11e4-9bc3-4921419ef44b.png)
 
 <p align="center">
 <a href="https://travis-ci.org/StyleCI/Git"><img src="https://img.shields.io/travis/StyleCI/Git/master.svg?style=flat-square" alt="Build Status"></img></a>
