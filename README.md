@@ -29,11 +29,6 @@ You'll then need to run `composer install` or `composer update` to download it a
 Once StyleCI Git is installed, you're done. There are no service providers to register.
 
 
-## Configuration
-
-StyleCI Git requires no configuration. Just follow the simple install instructions and go!
-
-
 ## Usage
 
 StyleCI Git is designed to pull down code from github with maximum reliability and ease. There is currently no real documentation for this package, but feel free to check out the [API Documentation](http://docs.grahamjcampbell.co.uk) for StyleCI Git.
