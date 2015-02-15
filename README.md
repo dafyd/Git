@@ -26,7 +26,11 @@ To get the latest version of StyleCI Git, simply add the following line to the r
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
-Once StyleCI Git is installed, you're done. There are no service providers to register.
+If you're using Laravel 5, then you can register our service provider. Open up `config/app.php` and add the following to the `providers` key.
+
+* `'StyleCI\Git\GitServiceProvider'`
+
+This will bind the repository factory to the ioc container. If you want the repository factory setup in a different way, then feel free to write and use your own service provider instead.
 
 
 ## Usage
