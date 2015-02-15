@@ -18,11 +18,11 @@ use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * This is the github repository class.
+ * This is the basic repository class.
  *
  * @author Graham Campbell <graham@mineuk.com>
  */
-class GitHubRepository implements RepositoryInterface
+class BasicRepository implements RepositoryInterface
 {
     /**
      * The local storage path.
@@ -32,7 +32,7 @@ class GitHubRepository implements RepositoryInterface
     protected $path;
 
     /**
-     * The github repository location.
+     * The remote repository location.
      *
      * @var string
      */
@@ -53,18 +53,20 @@ class GitHubRepository implements RepositoryInterface
     protected $repo;
 
     /**
-     * Create a new github repository instance.
+     * Create a new basic repository instance.
      *
-     * @param string $repo
-     * @param string $path
+     * @param string                                        $repo
+     * @param string                                        $user
+     * @param string                                        $path
+     * @param \Symfony\Component\Filesystem\Filesystem|null $filesystem
      *
      * @return void
      */
-    public function __construct($repo, $path)
+    public function __construct($repo, $user, $path, Filesystem $filesystem = null)
     {
         $this->path = $path.'/'.sha1($repo);
-        $this->location = 'git@github.com:'.$repo.'.git';
-        $this->filesystem = new Filesystem();
+        $this->location = "$user:$repo.git";
+        $this->filesystem = $filesystem ?: new Filesystem();
     }
 
     /**
