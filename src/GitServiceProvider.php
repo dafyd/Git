@@ -47,7 +47,7 @@ class GitServiceProvider extends ServiceProvider
      */
     protected function registerRepositoryFactory()
     {
-        $this->app->singleton('git.factory', function () {
+        $this->app->singleton('git.factory', function ($app) {
             $path = $app['path.storage'].'/repos';
             $user = 'git@github.com';
 
