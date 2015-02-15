@@ -59,7 +59,7 @@ class RepositoryFactory
     }
 
     /**
-     * Get the a git repository object.
+     * Make a new git repository object.
      *
      * @param string $repo
      *
