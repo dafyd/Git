@@ -65,7 +65,7 @@ class GitServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'git.factory'
+            'git.factory',
         ];
     }
 }
