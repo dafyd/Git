@@ -1,7 +1,7 @@
 # StyleCI Git ![Analytics](https://ga-beacon.appspot.com/UA-60053271-6/StyleCI/Git?pixel)
 
 
-StyleCI Git was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a git repository manager. It utilises the [Gitlib](https://github.com/gitonomy/gitlib) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/StyleCI/Git/releases), [license](LICENSE), [api docs](https://docs.gjcampbell.co.uk), and [contribution guidelines](CONTRIBUTING.md).
+StyleCI Git was created by, and is maintained by [Graham Campbell](https://github.com/GrahamCampbell), and is a git repository manager. It utilises the [Gitlib](https://github.com/gitonomy/gitlib) package. Feel free to check out the [change log](CHANGELOG.md), [releases](https://github.com/StyleCI/Git/releases), [license](LICENSE), and [contribution guidelines](CONTRIBUTING.md).
 
 ![StyleCI Git](https://cloud.githubusercontent.com/assets/2829600/5893832/e1bf28de-a4ea-11e4-9bc3-4921419ef44b.png)
 
@@ -35,7 +35,7 @@ This will bind the repository factory to the ioc container. If you want the repo
 
 ## Usage
 
-StyleCI Git is designed to pull down code from github with maximum reliability and ease. There is currently no real documentation for this package, but feel free to check out the [API Documentation](https://docs.gjcampbell.co.uk) for StyleCI Git.
+StyleCI Git is designed to pull down code from github with maximum reliability and ease. There is currently no real documentation for this package, but we are open to pull requests.
 
 
 ## License
