@@ -83,12 +83,12 @@ class RepositoryFactory
      *
      * @param int $days
      *
-     * @return void
+     * @return int
      */
     public function gc($days = 14)
     {
         $collector = new GarbageCollector($this->path);
 
-        $collector->collect();
+        return $collector->collect();
     }
 }

@@ -56,7 +56,7 @@ class GarbageCollector
      *
      * @param int $days
      *
-     * @return void
+     * @return int
      */
     public function collect($days = 14)
     {
@@ -64,8 +64,13 @@ class GarbageCollector
 
         $finder->in($path)->directories()->date("< $days days ago");
 
+        $count = 0;
+
         foreach ($finder as $dir) {
+            $count++;
             $this->filesystem->remove($dir->getRealPath());
         }
+
+        return $count;
     }
 }
