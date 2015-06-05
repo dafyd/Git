@@ -20,7 +20,8 @@
     "require": {
         "php": ">=5.5.9",
         "gitonomy/gitlib": "~1.0",
-        "symfony/filesystem": "~2.3"
+        "symfony/filesystem": "~2.3",
+        "symfony/finder": "~2.3"
     },
     "require-dev": {
         "graham-campbell/testbench": "~2.1"
@@ -40,7 +41,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         }
     },
     "minimum-stability": "dev",

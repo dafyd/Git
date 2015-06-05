@@ -21,7 +21,7 @@ StyleCI Git was created by, and is maintained by [Graham Campbell](https://githu
 To get the latest version of StyleCI Git, simply add the following line to the require block of your `composer.json` file:
 
 ```
-"styleci/git": "0.1.*"
+"styleci/git": "0.2.*"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
