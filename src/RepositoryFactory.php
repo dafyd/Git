@@ -75,4 +75,20 @@ class RepositoryFactory
 
         return new PersistentRepository($repository);
     }
+
+    /**
+     * Run the garbage collector.
+     *
+     * This deletes all repos not modified recently.
+     *
+     * @param int $days
+     *
+     * @return void
+     */
+    public function gc($days = 14)
+    {
+        $collector = new GarbageCollector($this->path);
+
+        $collector->collect();
+    }
 }
