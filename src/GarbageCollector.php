@@ -11,8 +11,8 @@
 
 namespace StyleCI\Git;
 
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 /**
  * This is the garbage collector class.
