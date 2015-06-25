@@ -17,7 +17,7 @@ use Symfony\Component\Finder\Finder;
 /**
  * This is the garbage collector class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class GarbageCollector
 {

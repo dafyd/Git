@@ -14,7 +14,7 @@ namespace StyleCI\Git\Exceptions\Persistence;
 /**
  * This is the getting repository exception class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class GettingRepositoryException extends AbstractPersistenceException
 {

@@ -20,7 +20,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * This is the basic repository class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class BasicRepository implements RepositoryInterface
 {

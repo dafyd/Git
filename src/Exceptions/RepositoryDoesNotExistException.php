@@ -16,7 +16,7 @@ use Exception;
 /**
  * This is the repository does not exist exception class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class RepositoryDoesNotExistException extends Exception
 {

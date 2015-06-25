@@ -16,7 +16,7 @@ use Exception;
 /**
  * This is the repository already exists exception class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class RepositoryAlreadyExistsException extends Exception
 {

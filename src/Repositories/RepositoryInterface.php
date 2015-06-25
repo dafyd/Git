@@ -14,7 +14,7 @@ namespace StyleCI\Git\Repositories;
 /**
  * This is the repository interface.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 interface RepositoryInterface
 {

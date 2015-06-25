@@ -23,7 +23,7 @@ use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
 /**
  * This is the persistent repository class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class PersistentRepository implements RepositoryInterface
 {

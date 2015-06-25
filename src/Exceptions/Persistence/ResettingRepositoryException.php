@@ -14,7 +14,7 @@ namespace StyleCI\Git\Exceptions\Persistence;
 /**
  * This is the resetting repository exception class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class ResettingRepositoryException extends AbstractPersistenceException
 {

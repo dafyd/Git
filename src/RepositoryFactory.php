@@ -17,7 +17,7 @@ use StyleCI\Git\Repositories\PersistentRepository;
 /**
  * This is the repository factory class.
  *
- * @author Graham Campbell <graham@cachethq.io>
+ * @author Graham Campbell <graham@alt-three.com>
  */
 class RepositoryFactory
 {
