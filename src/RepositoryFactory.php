@@ -89,6 +89,6 @@ class RepositoryFactory
     {
         $collector = new GarbageCollector($this->path);
 
-        return $collector->collect();
+        return $collector->collect($days);
     }
 }

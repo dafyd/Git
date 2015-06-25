@@ -11,19 +11,27 @@
 
 namespace StyleCI\Tests\Git;
 
-use GrahamCampbell\TestBench\Traits\ServiceProviderTestCaseTrait;
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use GrahamCampbell\TestBenchCore\ServiceProviderTrait;
+use StyleCI\Git\GitServiceProvider;
+use StyleCI\Git\RepositoryFactory;
 
 /**
  * This is the service provider test class.
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class ServiceProviderTest extends AbstractTestCase
+class ServiceProviderTest extends AbstractPackageTestCase
 {
-    use ServiceProviderTestCaseTrait;
+    use ServiceProviderTrait;
+
+    protected function getServiceProviderClass($app)
+    {
+        return GitServiceProvider::class;
+    }
 
     public function testRepositoryFactoryIsInjectable()
     {
-        $this->assertIsInjectable('StyleCI\Git\RepositoryFactory');
+        $this->assertIsInjectable(RepositoryFactory::class);
     }
 }
