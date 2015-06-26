@@ -62,7 +62,7 @@ class GarbageCollector
     {
         $finder = new Finder();
 
-        $finder->in($this->path)->directories()->date("< $days days ago");
+        $finder->in($this->path)->depth(0)->directories()->date("< $days days ago");
 
         $count = 0;
 
