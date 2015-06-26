@@ -11,7 +11,7 @@
 
 namespace StyleCI\Git;
 
-use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -29,17 +29,17 @@ class GarbageCollector
     protected $path;
 
     /**
-     * The filesystem instance.
+     * The symfony filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var \Symfony\Component\Filesystem\Filesystem
      */
     protected $filesystem;
 
     /**
      * Create a new garbage collector instance.
      *
-     * @param string                                 $path
-     * @param \Illuminate\Filesystem\Filesystem|null $filesystem
+     * @param string                                        $path
+     * @param \Symfony\Component\Filesystem\Filesystem|null $filesystem
      *
      * @return void
      */
@@ -68,7 +68,7 @@ class GarbageCollector
 
         foreach ($finder as $dir) {
             $count++;
-            $this->filesystem->deleteDirectory($dir->getRealPath());
+            $this->filesystem->remove($dir->getRealPath());
         }
 
         return $count;
