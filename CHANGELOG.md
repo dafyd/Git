@@ -2,7 +2,7 @@ CHANGE LOG
 ==========
 
 
-## V0.2 Alpha (Upcoming)
+## V0.2 Alpha (27/06/2015)
 
 * Added a garbage collector
 
