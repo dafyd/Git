@@ -72,11 +72,11 @@ class RepositoryFactory
 
         $repository = new BasicRepository($name, $this->user, $path);
 
-        if (!$this->persistent) {
-            return $repository;
+        if ($this->persistent) {
+            $repository = new PersistentRepository($repository);
         }
 
-        return new PersistentRepository($repository);
+        return $repository;
     }
 
     /**
