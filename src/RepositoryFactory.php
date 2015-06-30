@@ -61,7 +61,7 @@ class RepositoryFactory
     /**
      * Make a new git repository object.
      *
-     * @param string      $repo
+     * @param string      $name
      * @param string|null $folder
      *
      * @return \StyleCI\Git\Repositories\RepositoryInterface
