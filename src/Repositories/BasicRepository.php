@@ -55,17 +55,17 @@ class BasicRepository implements RepositoryInterface
     /**
      * Create a new basic repository instance.
      *
-     * @param string                                        $repo
+     * @param string                                        $name
      * @param string                                        $user
      * @param string                                        $path
      * @param \Symfony\Component\Filesystem\Filesystem|null $filesystem
      *
      * @return void
      */
-    public function __construct($repo, $user, $path, Filesystem $filesystem = null)
+    public function __construct($name, $user, $path, Filesystem $filesystem = null)
     {
-        $this->path = $path.'/'.sha1($repo);
-        $this->location = "$user:$repo.git";
+        $this->path = $path;
+        $this->location = "$user:$name.git";
         $this->filesystem = $filesystem ?: new Filesystem();
     }
 
