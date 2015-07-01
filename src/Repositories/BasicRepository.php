@@ -131,13 +131,15 @@ class BasicRepository implements RepositoryInterface
     /**
      * Fetch the latest changes to our repository from the interwebs.
      *
+     * @param array $params
+     *
      * @throws \Gitonomy\Git\Exception\GitExceptionInterface
      *
      * @return void
      */
-    public function fetch()
+    public function fetch(array $params = ['--all'])
     {
-        $this->repo()->run('fetch', ['--all']);
+        $this->repo()->run('fetch', $params);
     }
 
     /**

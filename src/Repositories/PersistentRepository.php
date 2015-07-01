@@ -137,11 +137,13 @@ class PersistentRepository implements RepositoryInterface
     /**
      * Fetch the latest changes to our repository from the interwebs.
      *
+     * @param array $params
+     *
      * @throws \StyleCI\Git\Exceptions\Persistence\FetchingRepositoryException
      *
      * @return void
      */
-    public function fetch()
+    public function fetch(array $params = ['--all'])
     {
         $exceptions = [];
 
@@ -155,7 +157,7 @@ class PersistentRepository implements RepositoryInterface
                     return $this->get();
                 }
 
-                return $this->repository->fetch();
+                return $this->repository->fetch($params);
             } catch (RepositoryDoesNotExistException $exception) {
                 $exceptions[] = $exception;
             } catch (GitExceptionInterface $exception) {

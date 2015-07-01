@@ -49,9 +49,11 @@ interface RepositoryInterface
     /**
      * Fetch the latest changes to our repository from the interwebs.
      *
+     * @param array $params
+     *
      * @return void
      */
-    public function fetch();
+    public function fetch(array $params = ['--all']);
 
     /**
      * Reset our local repository to a specific commit.
