@@ -18,7 +18,7 @@ use Exception;
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class RepositoryDoesNotExistException extends Exception
+class RepositoryDoesNotExistException extends Exception implements GitExceptionInterface
 {
     /**
      * Create a new repository does not exist exception instance.

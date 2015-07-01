@@ -12,13 +12,14 @@
 namespace StyleCI\Git\Exceptions\Persistence;
 
 use Exception;
+use StyleCI\Git\Exceptions\GitExceptionInterface;
 
 /**
  * This is the abstract persistence exception class.
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-abstract class AbstractPersistenceException extends Exception
+abstract class AbstractPersistenceException extends Exception implements GitExceptionInterface
 {
     /**
      * The array of caught exceptions.
