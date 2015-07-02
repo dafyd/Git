@@ -22,13 +22,6 @@ use StyleCI\Git\Repositories\PersistentRepository;
 class RepositoryFactory
 {
     /**
-     * The local storage path.
-     *
-     * @var string
-     */
-    protected $path;
-
-    /**
      * The remote git user.
      *
      * @var string
@@ -45,15 +38,13 @@ class RepositoryFactory
     /**
      * Create a new repository factory instance.
      *
-     * @param string $path
      * @param string $user
      * @param bool   $persistent
      *
      * @return void
      */
-    public function __construct($path, $user, $persistent = true)
+    public function __construct($user, $persistent = true)
     {
-        $this->path = $path;
         $this->user = $user;
         $this->persistent = $persistent;
     }
@@ -61,15 +52,13 @@ class RepositoryFactory
     /**
      * Make a new git repository object.
      *
-     * @param string      $name
-     * @param string|null $folder
+     * @param string $name
+     * @param string $path
      *
      * @return \StyleCI\Git\Repositories\RepositoryInterface
      */
-    public function make($name, $folder = null)
+    public function make($name, $path)
     {
-        $path = $folder ? $this->path.'/'.$folder : $this->path.'/'.sha1($name);
-
         $repository = new BasicRepository($name, $this->user, $path);
 
         if ($this->persistent) {
@@ -84,13 +73,14 @@ class RepositoryFactory
      *
      * This deletes all repos not modified recently.
      *
-     * @param int $days
+     * @param string $path
+     * @param int    $days
      *
      * @return int
      */
-    public function gc($days = 14)
+    public function gc($path, $days = 14)
     {
-        $collector = new GarbageCollector($this->path);
+        $collector = new GarbageCollector($path);
 
         return $collector->collect($days);
     }
