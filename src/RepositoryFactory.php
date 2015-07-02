@@ -43,7 +43,7 @@ class RepositoryFactory
      *
      * @return void
      */
-    public function __construct($user, $persistent = true)
+    public function __construct($user = 'git@github.com', $persistent = true)
     {
         $this->user = $user;
         $this->persistent = $persistent;
