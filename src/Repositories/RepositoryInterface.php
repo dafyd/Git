@@ -40,20 +40,13 @@ interface RepositoryInterface
     public function get();
 
     /**
-     * Get the gitlib repository instance.
-     *
-     * @return \Gitonomy\Git\Repository
-     */
-    public function repo();
-
-    /**
      * Fetch the latest changes to our repository from the interwebs.
      *
-     * @param array $params
+     * @param string|null
      *
      * @return void
      */
-    public function fetch(array $params = ['--all']);
+    public function fetch($name = null);
 
     /**
      * Reset our local repository to a specific commit.

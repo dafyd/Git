@@ -12,7 +12,7 @@
 namespace StyleCI\Git\Repositories;
 
 use Exception;
-use Gitonomy\Git\Exception\GitExceptionInterface;
+use GitWrapper\GitException;
 use StyleCI\Git\Exceptions\Persistence\CloningRepositoryException;
 use StyleCI\Git\Exceptions\Persistence\FetchingRepositoryException;
 use StyleCI\Git\Exceptions\Persistence\GettingRepositoryException;
@@ -88,7 +88,7 @@ class PersistentRepository implements RepositoryInterface
                 return $this->repository->get();
             } catch (RepositoryAlreadyExistsException $exception) {
                 return; // we're totally done here, stop
-            } catch (GitExceptionInterface $exception) {
+            } catch (GitException $exception) {
                 $exceptions[] = $exception;
             } catch (Exception $exception) {
                 $exceptions[] = $exception;
@@ -100,50 +100,15 @@ class PersistentRepository implements RepositoryInterface
     }
 
     /**
-     * Get the gitlib repository instance.
-     *
-     * @throws \StyleCI\Git\Exceptions\Persistence\GettingRepositoryException
-     *
-     * @return \Gitonomy\Git\Repository
-     */
-    public function repo()
-    {
-        $exceptions = [];
-
-        while (($tries = count($exceptions)) < 3) {
-            try {
-                if ($tries > 0) {
-                    // if we've failed before, delete the local repository
-                    // because it may have been damaged in some way
-                    $this->delete();
-                }
-
-                $this->get();
-
-                return $this->repository->repo();
-            } catch (RepositoryDoesNotExistException $exception) {
-                $exceptions[] = $exception;
-            } catch (GitExceptionInterface $exception) {
-                $exceptions[] = $exception;
-            } catch (Exception $exception) {
-                $exceptions[] = $exception;
-                break; // if we get any other kind of exception, bail out
-            }
-        }
-
-        throw new GettingRepositoryException($exceptions);
-    }
-
-    /**
      * Fetch the latest changes to our repository from the interwebs.
      *
-     * @param array $params
+     * @param string|null
      *
      * @throws \StyleCI\Git\Exceptions\Persistence\FetchingRepositoryException
      *
      * @return void
      */
-    public function fetch(array $params = ['--all'])
+    public function fetch($name = null)
     {
         $exceptions = [];
 
@@ -157,10 +122,10 @@ class PersistentRepository implements RepositoryInterface
                     return $this->get();
                 }
 
-                return $this->repository->fetch($params);
+                return $this->repository->fetch($name);
             } catch (RepositoryDoesNotExistException $exception) {
                 $exceptions[] = $exception;
-            } catch (GitExceptionInterface $exception) {
+            } catch (GitException $exception) {
                 $exceptions[] = $exception;
             } catch (Exception $exception) {
                 $exceptions[] = $exception;
@@ -197,7 +162,7 @@ class PersistentRepository implements RepositoryInterface
                 return $this->repository->reset($commit);
             } catch (RepositoryDoesNotExistException $exception) {
                 $exceptions[] = $exception;
-            } catch (GitExceptionInterface $exception) {
+            } catch (GitException $exception) {
                 $exceptions[] = $exception;
             } catch (Exception $exception) {
                 $exceptions[] = $exception;

@@ -11,8 +11,8 @@
 
 namespace StyleCI\Git\Repositories;
 
-use Gitonomy\Git\Admin as Git;
 use Gitonomy\Git\Repository as GitRepo;
+use GitWrapper\GitWrapper;
 use StyleCI\Git\Exceptions\RepositoryAlreadyExistsException;
 use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -46,11 +46,11 @@ class BasicRepository implements RepositoryInterface
     protected $filesystem;
 
     /**
-     * The gitlib repository instance.
+     * The git wrapper instance.
      *
-     * @var \Gitonomy\Git\Repository
+     * @var \GitWrapper\GitWrapper
      */
-    protected $repo;
+    protected $wrapper;
 
     /**
      * Create a new basic repository instance.
@@ -58,15 +58,22 @@ class BasicRepository implements RepositoryInterface
      * @param string                                        $name
      * @param string                                        $user
      * @param string                                        $path
+     * @param string|null                                   $key
      * @param \Symfony\Component\Filesystem\Filesystem|null $filesystem
+     * @param \GitWrapper\GitWrapper|null                   $wrapper
      *
      * @return void
      */
-    public function __construct($name, $user, $path, Filesystem $filesystem = null)
+    public function __construct($name, $user, $path, $key = null, Filesystem $filesystem = null, GitWrapper $wrapper = null)
     {
         $this->path = $path;
         $this->location = "$user:$name.git";
         $this->filesystem = $filesystem ?: new Filesystem();
+        $this->wrapper = $wrapper ?: new GitWrapper();
+
+        if ($key) {
+            $this->wrapper->setPrivateKey($key);
+        }
     }
 
     /**
@@ -92,7 +99,7 @@ class BasicRepository implements RepositoryInterface
     /**
      * Clone the repository to the local filesystem.
      *
-     * @throws \Gitonomy\Git\Exception\GitExceptionInterface
+     * @throws \GitWrapper\GitException
      * @throws \StyleCI\Git\Exceptions\RepositoryAlreadyExistsException
      *
      * @return void
@@ -105,41 +112,32 @@ class BasicRepository implements RepositoryInterface
 
         $this->filesystem->mkdir($this->path);
 
-        $this->repo = Git::cloneTo($this->path, $this->location, false);
-    }
-
-    /**
-     * Get the gitlib repository instance.
-     *
-     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
-     *
-     * @return \Gitonomy\Git\Repository
-     */
-    public function repo()
-    {
-        if ($this->repo) {
-            return $this->repo;
-        }
-
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
-
-        return $this->repo = new GitRepo($this->path);
+        $this->wrapper->clone($this->location, $this->path);
     }
 
     /**
      * Fetch the latest changes to our repository from the interwebs.
      *
-     * @param array $params
+     * @param string|null
      *
-     * @throws \Gitonomy\Git\Exception\GitExceptionInterface
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
      * @return void
      */
-    public function fetch(array $params = ['--all'])
+    public function fetch($name = null)
     {
-        $this->repo()->run('fetch', $params);
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        if ($name) {
+            $git->fetch('origin', $name);
+        } else {
+            $git->fetchAll();
+        }
     }
 
     /**
@@ -147,23 +145,38 @@ class BasicRepository implements RepositoryInterface
      *
      * @param string $commit
      *
-     * @throws \Gitonomy\Git\Exception\GitExceptionInterface
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
      * @return void
      */
     public function reset($commit)
     {
-        $this->repo()->run('reset', ['--hard', $commit]);
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->reset($commit, ['hard' => true]);
     }
 
     /**
      * Get the diff for the uncommitted modifications.
      *
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
      * @return \Gitonomy\Git\Diff\Diff
      */
     public function diff()
     {
-        return $this->repo()->getDiff('HEAD');
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $git = new GitRepo($this->path);
+
+        return $git->getDiff('HEAD');
     }
 
     /**
@@ -177,8 +190,6 @@ class BasicRepository implements RepositoryInterface
      */
     public function delete()
     {
-        $this->repo = null;
-
         if ($this->exists()) {
             $this->filesystem->remove($this->path);
         }

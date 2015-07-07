@@ -52,14 +52,15 @@ class RepositoryFactory
     /**
      * Make a new git repository object.
      *
-     * @param string $name
-     * @param string $path
+     * @param string      $name
+     * @param string      $path
+     * @param string|null $key
      *
      * @return \StyleCI\Git\Repositories\RepositoryInterface
      */
-    public function make($name, $path)
+    public function make($name, $path, $key = null)
     {
-        $repository = new BasicRepository($name, $this->user, $path);
+        $repository = new BasicRepository($name, $this->user, $path, $key);
 
         if ($this->persistent) {
             $repository = new PersistentRepository($repository);
