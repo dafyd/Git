@@ -15,7 +15,6 @@ use Exception;
 use GitWrapper\GitException;
 use StyleCI\Git\Exceptions\Persistence\CloningRepositoryException;
 use StyleCI\Git\Exceptions\Persistence\FetchingRepositoryException;
-use StyleCI\Git\Exceptions\Persistence\GettingRepositoryException;
 use StyleCI\Git\Exceptions\Persistence\ResettingRepositoryException;
 use StyleCI\Git\Exceptions\RepositoryAlreadyExistsException;
 use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
