@@ -19,7 +19,7 @@
     ],
     "require": {
         "php": ">=5.5.9",
-        "cpliakas/git-wrapper": "dev-master as 1.4.2",
+        "cpliakas/git-wrapper": "~1.5",
         "gitonomy/gitlib": "~1.0",
         "symfony/filesystem": "~2.3",
         "symfony/finder": "~2.3"
