@@ -12,6 +12,7 @@
 namespace StyleCI\Git\Repositories;
 
 use Exception;
+use Gitonomy\Git\Exception\GitExceptionInterface;
 use GitWrapper\GitException;
 use StyleCI\Git\Exceptions\Persistence\CloningRepositoryException;
 use StyleCI\Git\Exceptions\Persistence\FetchingRepositoryException;
@@ -161,7 +162,7 @@ class PersistentRepository implements RepositoryInterface
                 return $this->repository->reset($commit);
             } catch (RepositoryDoesNotExistException $exception) {
                 $exceptions[] = $exception;
-            } catch (GitException $exception) {
+            } catch (GitExceptionInterface $exception) {
                 $exceptions[] = $exception;
             } catch (Exception $exception) {
                 $exceptions[] = $exception;

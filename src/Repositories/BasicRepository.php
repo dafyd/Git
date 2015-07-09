@@ -145,7 +145,7 @@ class BasicRepository implements RepositoryInterface
      *
      * @param string $commit
      *
-     * @throws \GitWrapper\GitException
+     * @throws \Gitonomy\Git\Exception\GitExceptionInterface
      * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
      * @return void
@@ -156,9 +156,9 @@ class BasicRepository implements RepositoryInterface
             throw new RepositoryDoesNotExistException();
         }
 
-        $git = $this->wrapper->workingCopy($this->path);
+        $git = new GitRepo($this->path);
 
-        $git->reset($commit, ['hard' => true]);
+        $git->run('reset', ['--hard', $commit]);
     }
 
     /**
