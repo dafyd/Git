@@ -97,6 +97,20 @@ class Repository
     }
 
     /**
+     * Check if the repo exists on the local filesystem.
+     *
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
+     * @return void
+     */
+    protected function guard()
+    {
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+    }
+
+    /**
      * Clone the repository to the local filesystem.
      *
      * @throws \GitWrapper\GitException
@@ -127,9 +141,7 @@ class Repository
      */
     public function fetch($name = null)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
         $git = $this->wrapper->workingCopy($this->path);
 
@@ -152,9 +164,7 @@ class Repository
      */
     public function reset($commit)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
         $git = new GitRepo($this->path);
 
@@ -170,9 +180,7 @@ class Repository
      */
     public function diff()
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
         $git = new GitRepo($this->path);
 
@@ -184,17 +192,16 @@ class Repository
      *
      * @param string $branch
      *
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
      * @return void
      */
     public function checkout($branch)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
-        $git = $this->wrapper->workingCopy($this->path);
-
-        $git->checkoutNewBranch($branch);
+        $this->wrapper->workingCopy($this->path)->checkoutNewBranch($branch);
     }
 
     /**
@@ -202,21 +209,20 @@ class Repository
      *
      * @param string $diff
      *
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
      * @return void
      */
     public function apply($diff)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
         $file = $this->path.'/styleci-git.diff';
 
         file_put_contents($file, $diff);
 
-        $git = $this->wrapper->workingCopy($this->path);
-
-        $git->apply($file);
+        $this->wrapper->workingCopy($this->path)->apply($file);
 
         unlink($file);
     }
@@ -226,19 +232,16 @@ class Repository
      *
      * @param string $message
      *
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
      * @return void
      */
     public function commit($message)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
-        $this->filesystem->remove($this->path);
-
-        $git = $this->wrapper->workingCopy($this->path);
-
-        $git->commit($message);
+        $this->wrapper->workingCopy($this->path)->commit($message);
     }
 
     /**
@@ -246,17 +249,16 @@ class Repository
      *
      * @param string $branch
      *
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
      * @return void
      */
     public function publish($branch)
     {
-        if (!$this->exists()) {
-            throw new RepositoryDoesNotExistException();
-        }
+        $this->guard();
 
-        $git = $this->wrapper->workingCopy($this->path);
-
-        $git->push('origin', $branch);
+        $this->wrapper->workingCopy($this->path)->push('origin', $branch);
     }
 
     /**
