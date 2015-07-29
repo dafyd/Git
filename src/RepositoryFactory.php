@@ -11,9 +11,6 @@
 
 namespace StyleCI\Git;
 
-use StyleCI\Git\Repositories\BasicRepository;
-use StyleCI\Git\Repositories\PersistentRepository;
-
 /**
  * This is the repository factory class.
  *
@@ -29,24 +26,15 @@ class RepositoryFactory
     protected $user;
 
     /**
-     * Are we using the persistent repository decorator?
-     *
-     * @var bool
-     */
-    protected $persistent;
-
-    /**
      * Create a new repository factory instance.
      *
      * @param string $user
-     * @param bool   $persistent
      *
      * @return void
      */
-    public function __construct($user = 'git@github.com', $persistent = true)
+    public function __construct($user)
     {
         $this->user = $user;
-        $this->persistent = $persistent;
     }
 
     /**
@@ -56,15 +44,11 @@ class RepositoryFactory
      * @param string      $path
      * @param string|null $key
      *
-     * @return \StyleCI\Git\Repositories\RepositoryInterface
+     * @return \StyleCI\Git\Repository
      */
     public function make($name, $path, $key = null)
     {
-        $repository = new BasicRepository($name, $this->user, $path, $key);
-
-        if ($this->persistent) {
-            $repository = new PersistentRepository($repository);
-        }
+        $repository = new Repository($name, $this->user, $path, $key);
 
         return $repository;
     }

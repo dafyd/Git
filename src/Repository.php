@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace StyleCI\Git\Repositories;
+namespace StyleCI\Git;
 
 use Gitonomy\Git\Repository as GitRepo;
 use GitWrapper\GitWrapper;
@@ -18,11 +18,11 @@ use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * This is the basic repository class.
+ * This is the repository class.
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class BasicRepository implements RepositoryInterface
+class Repository
 {
     /**
      * The local storage path.
@@ -53,7 +53,7 @@ class BasicRepository implements RepositoryInterface
     protected $wrapper;
 
     /**
-     * Create a new basic repository instance.
+     * Create a new repository instance.
      *
      * @param string                                        $name
      * @param string                                        $user
@@ -162,7 +162,7 @@ class BasicRepository implements RepositoryInterface
     }
 
     /**
-     * Get the diff for the uncommitted modifications.
+     * Get the diff for the uncommitted local modifications.
      *
      * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
@@ -177,6 +177,86 @@ class BasicRepository implements RepositoryInterface
         $git = new GitRepo($this->path);
 
         return $git->getDiff('HEAD');
+    }
+
+    /**
+     * Checkout a new branch on the local repository.
+     *
+     * @param string $branch
+     *
+     * @return void
+     */
+    public function checkout($branch)
+    {
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->checkoutNewBranch($branch);
+    }
+
+    /**
+     * Apply a diff to the local repository.
+     *
+     * @param string $diff
+     *
+     * @return void
+     */
+    public function apply($diff)
+    {
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $file = $this->path.'/styleci-git.diff';
+
+        file_put_contents($file, $diff);
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->apply($file);
+
+        unlink($file);
+    }
+
+    /**
+     * Commit all changes on the local repository.
+     *
+     * @param string $message
+     *
+     * @return void
+     */
+    public function commit($message)
+    {
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $this->filesystem->remove($this->path);
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->commit($message);
+    }
+
+    /**
+     * Publish a branch to the remote repository.
+     *
+     * @param string $branch
+     *
+     * @return void
+     */
+    public function publish($branch)
+    {
+        if (!$this->exists()) {
+            throw new RepositoryDoesNotExistException();
+        }
+
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->push('origin', $branch);
     }
 
     /**
