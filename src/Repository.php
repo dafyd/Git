@@ -248,7 +248,7 @@ class Repository
 
         file_put_contents($file, $diff);
 
-        $this->wrapper->workingCopy($this->path)->apply($file);
+        $this->wrapper->workingCopy($this->path)->apply($file, ['whitespace' => 'nowarn', '3way' => true]);
 
         unlink($file);
     }
