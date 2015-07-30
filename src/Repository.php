@@ -251,14 +251,15 @@ class Repository
     /**
      * Commit all changes on the local repository.
      *
-     * @param string $message
+     * @param string      $message
+     * @param string|null $author
      *
      * @throws \GitWrapper\GitException
      * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
      * @return void
      */
-    public function commit($message)
+    public function commit($message, $author = null)
     {
         $this->guard();
 
@@ -267,7 +268,13 @@ class Repository
         $git->config('user.name', $this->config['name']);
         $git->config('user.email', $this->config['email']);
 
-        $git->commit($message);
+        $args = ['m' => $message, 'a' => true];
+
+        if ($author) {
+            $args['author'] = $author;
+        }
+
+        $git->commit($args);
     }
 
     /**
