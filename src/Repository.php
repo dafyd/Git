@@ -262,7 +262,12 @@ class Repository
     {
         $this->guard();
 
-        $this->wrapper->workingCopy($this->path)->commit($message);
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->config('user.name', $this->config['name']);
+        $git->config('user.email', $this->config['email']);
+
+        $git->commit($message);
     }
 
     /**
@@ -279,12 +284,7 @@ class Repository
     {
         $this->guard();
 
-        $git = $this->wrapper->workingCopy($this->path);
-
-        $git->config('user.name', $this->config['name']);
-        $git->config('user.email', $this->config['email']);
-
-        $git->push('origin', $branch);
+        $this->wrapper->workingCopy($this->path)->push('origin', $branch);
     }
 
     /**
