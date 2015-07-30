@@ -72,8 +72,21 @@ class Repository
         $this->wrapper = $wrapper ?: new GitWrapper();
 
         if ($key) {
-            $this->wrapper->setPrivateKey($key);
+            $path = "{$path}-key";
+            file_put_contents($path, $key);
+            chmod($path, 0600);
+            $this->wrapper->setPrivateKey($path);
         }
+    }
+
+    /**
+     * Destroy a repository instance.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        @unlink("{$this->path}-key");
     }
 
     /**
