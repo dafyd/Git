@@ -48,7 +48,7 @@ class RepositoryFactory
      */
     public function make($name, $path, $key = null)
     {
-        $repository = new Repository($this->config, $path, $key);
+        $repository = new Repository($this->config, $name, $path, $key);
 
         return $repository;
     }
