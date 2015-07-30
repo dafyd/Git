@@ -12,7 +12,6 @@
 namespace StyleCI\Git;
 
 use Gitonomy\Git\Repository as GitRepo;
-use Gitonomy\Git\RevisionList;
 use GitWrapper\GitWrapper;
 use StyleCI\Git\Exceptions\RepositoryAlreadyExistsException;
 use StyleCI\Git\Exceptions\RepositoryDoesNotExistException;
@@ -198,7 +197,7 @@ class Repository
      *
      * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
-     * @return string
+     * @return \Gitonomy\Git\Diff\Diff
      */
     public function diff()
     {
@@ -206,11 +205,7 @@ class Repository
 
         $git = new GitRepo($this->path);
 
-        $revisions = new RevisionList($git, 'HEAD');
-
-        $args = array_merge(['-r', '-p', '-m', '-M', '--no-commit-id', '--full-index', '--binary'], $revisions->getAsTextArray());
-
-        return $this->run('diff', $args));
+        return $git->getDiff('HEAD');
     }
 
     /**
