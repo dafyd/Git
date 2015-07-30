@@ -244,7 +244,7 @@ class Repository
     {
         $this->guard();
 
-        $file = $this->path.'/styleci-git.diff';
+        $file = $this->path.'/../styleci-git.diff';
 
         file_put_contents($file, $diff);
 
