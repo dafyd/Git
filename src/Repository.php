@@ -210,7 +210,7 @@ class Repository
 
         $args = array_merge(['-r', '-p', '-m', '-M', '--no-commit-id', '--full-index', '--binary'], $revisions->getAsTextArray());
 
-        return $this->run('diff', $args);
+        return $git->run('diff', $args);
     }
 
     /**
