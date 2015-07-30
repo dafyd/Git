@@ -19,22 +19,22 @@ namespace StyleCI\Git;
 class RepositoryFactory
 {
     /**
-     * The remote git user.
+     * The git config.
      *
-     * @var string
+     * @var string[]
      */
-    protected $user;
+    protected $config;
 
     /**
      * Create a new repository factory instance.
      *
-     * @param string $user
+     * @param string[] $config
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct(array $config)
     {
-        $this->user = $user;
+        $this->config = $config;
     }
 
     /**
@@ -48,7 +48,7 @@ class RepositoryFactory
      */
     public function make($name, $path, $key = null)
     {
-        $repository = new Repository($name, $this->user, $path, $key);
+        $repository = new Repository($this->config, $path, $key);
 
         return $repository;
     }

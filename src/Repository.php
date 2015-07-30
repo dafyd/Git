@@ -25,6 +25,13 @@ use Symfony\Component\Filesystem\Filesystem;
 class Repository
 {
     /**
+     * The git config.
+     *
+     * @var string[]
+     */
+    protected $config;
+
+    /**
      * The local storage path.
      *
      * @var string
@@ -55,8 +62,8 @@ class Repository
     /**
      * Create a new repository instance.
      *
+     * @param string[]                                      $config
      * @param string                                        $name
-     * @param string                                        $user
      * @param string                                        $path
      * @param string|null                                   $key
      * @param \Symfony\Component\Filesystem\Filesystem|null $filesystem
@@ -64,10 +71,11 @@ class Repository
      *
      * @return void
      */
-    public function __construct($name, $user, $path, $key = null, Filesystem $filesystem = null, GitWrapper $wrapper = null)
+    public function __construct(array $config, $name, $path, $key = null, Filesystem $filesystem = null, GitWrapper $wrapper = null)
     {
+        $this->config = $config;
         $this->path = $path;
-        $this->location = "$user:$name.git";
+        $this->location = $config['remote'].':'.$name.'.git';
         $this->filesystem = $filesystem ?: new Filesystem();
         $this->wrapper = $wrapper ?: new GitWrapper();
 
@@ -271,7 +279,12 @@ class Repository
     {
         $this->guard();
 
-        $this->wrapper->workingCopy($this->path)->push('origin', $branch);
+        $git = $this->wrapper->workingCopy($this->path);
+
+        $git->config('user.name', $this->config['name']);
+        $git->config('user.email', $this->config['email']);
+
+        $git->push('origin', $branch);
     }
 
     /**

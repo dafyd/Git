@@ -21,6 +21,32 @@ use Illuminate\Support\ServiceProvider;
 class GitServiceProvider extends ServiceProvider
 {
     /**
+     * Boot the service provider.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->setupConfig();
+    }
+
+    /**
+     * Setup the config.
+     *
+     * @return void
+     */
+    protected function setupConfig()
+    {
+        $source = realpath(__DIR__.'/../config/git.php');
+
+        if (class_exists('Illuminate\Foundation\Application', false)) {
+            $this->publishes([$source => config_path('git.php')]);
+        }
+
+        $this->mergeConfigFrom($source, 'git');
+    }
+
+    /**
      * Register the service provider.
      *
      * @return void
@@ -37,8 +63,10 @@ class GitServiceProvider extends ServiceProvider
      */
     protected function registerRepositoryFactory()
     {
-        $this->app->singleton('git.factory', function () {
-            return new RepositoryFactory('git@github.com');
+        $this->app->singleton('git.factory', function ($app) {
+            $config = $app->config->get('git');
+
+            return new RepositoryFactory($config);
         });
 
         $this->app->alias('git.factory', RepositoryFactory::class);
