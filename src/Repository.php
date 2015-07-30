@@ -198,7 +198,7 @@ class Repository
      *
      * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
      *
-     * @return string|null
+     * @return string
      */
     public function diff()
     {
@@ -210,7 +210,7 @@ class Repository
 
         $args = array_merge(['-r', '-p', '-m', '-M', '--no-commit-id', '--full-index', '--binary'], $revisions->getAsTextArray());
 
-        return $git->run('diff', $args) ?: null;
+        return $git->run('diff', $args);
     }
 
     /**
