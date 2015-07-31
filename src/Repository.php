@@ -241,11 +241,12 @@ class Repository
 
         $file = $this->path.'/../styleci-git.diff';
 
-        file_put_contents($file, $diff);
-
-        $this->wrapper->workingCopy($this->path)->apply($file, ['whitespace' => 'nowarn', '3way' => true]);
-
-        unlink($file);
+        try {
+            file_put_contents($file, $diff);
+            $this->wrapper->workingCopy($this->path)->apply($file, ['whitespace' => 'nowarn', '3way' => true]);
+        } finally {
+            unlink($file);
+        }
     }
 
     /**
