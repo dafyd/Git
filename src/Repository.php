@@ -79,6 +79,10 @@ class Repository
         $this->filesystem = $filesystem ?: new Filesystem();
         $this->wrapper = $wrapper ?: new GitWrapper();
 
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
+
         if ($key) {
             $path = "{$path}-key";
             file_put_contents($path, $key);
