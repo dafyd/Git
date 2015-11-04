@@ -271,6 +271,13 @@ class Repository
             unlink($file);
         }
     }
+    
+    public function pull()
+    {
+        $this->guard();
+
+        $this->wrapper->workingCopy($this->path)->pull('origin');
+    }
 
     /**
      * Commit all changes on the local repository.
