@@ -272,11 +272,11 @@ class Repository
         }
     }
     
-    public function pull()
+    public function pull($branch)
     {
         $this->guard();
 
-        $this->wrapper->workingCopy($this->path)->pull('origin');
+        $this->wrapper->workingCopy($this->path)->pull('origin', $branch);
     }
 
     /**
