@@ -232,6 +232,23 @@ class Repository
     }
 
     /**
+     * Checkout a specific commit to the local repository.
+     *
+     * @param string $commit
+     *
+     * @throws \GitWrapper\GitException
+     * @throws \StyleCI\Git\Exceptions\RepositoryDoesNotExistException
+     *
+     * @return void
+     */
+    public function checkoutCommit($commit)
+    {
+        $this->guard();
+
+        $this->wrapper->workingCopy($this->path)->checkout($commit);
+    }
+
+    /**
      * Apply a diff to the local repository.
      *
      * @param string $diff
